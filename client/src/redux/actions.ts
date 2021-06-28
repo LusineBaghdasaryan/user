@@ -1,19 +1,24 @@
 import * as actionTypes from './actionTypes';
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import type {IUserRegisterData} from '../interfaces'
+import type {IUserLoginData} from '../interfaces';
+import type {IResponse} from '../interfaces'
 
-const changeLoader = (bool) => (
+
+
+const changeLoader = (bool:boolean) => (
         {
             type: actionTypes.CHANGE_LOADING,
             payload: bool,
         });
 
 
-export const register = (data) => {
+export const register = (data:IUserRegisterData) => {
     const url = "api/auth/register";
     return async (dispatch) => {
         dispatch(changeLoader(true));
         try {
-            const res = await axios.post(`${url}`, {...data}, {
+            const res:AxiosResponse<IResponse> = await axios.post(`${url}`, {...data}, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -30,12 +35,12 @@ export const register = (data) => {
 }
 
 
-export const login = (data) => {
+export const login = (data:IUserLoginData) => {
     const url = "api/auth/login";
     return async (dispatch) => {
         dispatch(changeLoader(true));
         try {
-            const res = await axios.post(`${url}`, {...data}, {
+            const res:AxiosResponse<IResponse>  = await axios.post(`${url}`, {...data}, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -60,7 +65,7 @@ export const getUser = (id) => {
     return async (dispatch) => {
         dispatch(changeLoader(true));
         try {
-            const res = await axios.get(`${url}`);
+            const res:AxiosResponse<IResponse>  = await axios.get(`${url}`);
             if (!res.data.hasError) {
                 dispatch(({type: actionTypes.GET_USER, payload: res.data}));
                 dispatch(changeLoader(false));

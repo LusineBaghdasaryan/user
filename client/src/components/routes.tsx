@@ -1,11 +1,10 @@
-import React from 'react';
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Profile from "../components/Profile";
 import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 
 
-export const useRoutes = (isAuth) => {
+export const useRoutes = (isAuth:boolean) => {
     if (isAuth) {
         return (
                 <Router>
